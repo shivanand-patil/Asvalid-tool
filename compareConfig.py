@@ -37,5 +37,4 @@ if differences:
     print("Differences found:")
     for diff in differences:
         print(diff)
-else:
-    print("No differences in common keys.")
+

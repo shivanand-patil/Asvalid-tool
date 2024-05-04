@@ -79,7 +79,5 @@ def main():
     with open('/etc/aerospike/dynamic_config.json', 'w') as file:
         file.write(json_data)
 
-    print("Configuration has been written to /etc/aerospike/dynamic_config.json")
-
 if __name__ == "__main__":
     main()
