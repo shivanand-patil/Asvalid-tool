@@ -26,9 +26,10 @@ def parse_info_to_dict(info_str):
                 sub_dict = sub_dict[part]
             # Handle the last key part
             last_key_part = key_parts[-1]
-            # Special handling for storage-engine=memory
-            if last_key_part == "storage-engine" and value.strip() == "memory":
-                sub_dict[last_key_part] = {"type": "memory"}
+            # Special handling for storage-engine
+            if last_key_part == "storage-engine":
+                storage_engine_type = value.strip().split('/')[-1]  # Extracting the last part after splitting by '/'
+                sub_dict[last_key_part] = {"type": storage_engine_type}
             elif last_key_part in sub_dict:
                 existing_value = sub_dict[last_key_part]
                 if isinstance(existing_value, list):
@@ -81,3 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

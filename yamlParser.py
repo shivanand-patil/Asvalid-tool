@@ -6,6 +6,8 @@ def convert_to_str(obj):
         return {str(k): convert_to_str(v) for k, v in obj.items()}
     elif isinstance(obj, list):
         return [convert_to_str(item) for item in obj]
+    elif isinstance(obj, bool):  # Handle boolean values separately
+        return str(obj).lower()
     else:
         return str(obj)
 
