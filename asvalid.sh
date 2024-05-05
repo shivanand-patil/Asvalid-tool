@@ -4,7 +4,7 @@
 if [ $# -eq 0 ]; then
     echo "Usage: asvalid [option] [arguments]"
     echo "Options:"
-    echo "  compare             Generates and  Compare dynamic configuration values with aerospike.conf "
+    echo "  compare             Generates and Compares dynamic configuration values with aerospike.conf "
     echo "  validate <file>     Validate a configuration file against the Aerospike schema."
     exit 0
 fi
