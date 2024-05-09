@@ -17,7 +17,7 @@ def load_yaml_config(file_path):
         return yaml.safe_load(file)
 
 # Load the YAML configuration
-config_path = '/etc/aerospike/aerospike.yaml'  # Path to your aerospike.conf file
+config_path = '/opt/asvalid/aerospike.yaml'  # Path to your aerospike.conf file
 aerospike_config = load_yaml_config(config_path)
 
 # Extract namespaces
@@ -33,6 +33,6 @@ aerospike_config['namespaces'] = namespaces_dict
 aerospike_config_str = convert_to_str(aerospike_config)
 
 # Open a file where you want to store the output in double-quoted JSON format
-with open('/etc/aerospike/baseline.json', 'w') as f:
+with open('/opt/asvalid/baseline.json', 'w') as f:
     # Dump the dictionary to a file with JSON formatting, ensuring it's pretty-printed
     json.dump(aerospike_config_str, f, indent=4)

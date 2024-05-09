@@ -1,18 +1,15 @@
 #!/bin/bash
 
 # Directory to store output files of the compareConfig.py
-output_directory="/etc/aerospike/conf_change_history"
-base_path="/usr/local/bin"
+output_directory="/opt/asvalid/conf_change_history"
+base_path="/usr/local/bin/asvalid-tool"
 
 # Create the output directory if it does not exist
 mkdir -p "$output_directory"
 
-# Run createYaml.sh
-$base_path/createYaml.sh
-if [ $? -ne 0 ]; then
-  echo "Failed to run createYaml.sh"
-  exit 1
-fi
+version=$(asd --version | awk '{print $5}' )
+
+asconfig convert --aerospike-version "$version" --output /opt/asvalid/aerospike.yaml /etc/aerospike/aerospike.conf
 
 # Run yamlParser.py using Python interpreter
 python3 $base_path/yamlParser.py

@@ -12,7 +12,7 @@ fi
 # Check if the first argument is "compare"
 if [ "$1" == "compare" ]; then
     # Execute asvalid compare
-    bash /usr/local/bin/asvalid_compare.sh
+    bash /usr/local/bin/asvalid-tool/asvalid_compare.sh
 elif [ "$1" == "validate" ]; then
     # Check if the number of arguments is correct for "validate"
     if [ $# -ne 2 ]; then
@@ -20,7 +20,7 @@ elif [ "$1" == "validate" ]; then
         exit 1
     fi
     # Execute asvalid validate <file>
-    bash /usr/local/bin/asvalid_validate.sh "$2"
+    bash /usr/local/bin/asvalid-tool/asvalid_validate.sh "$2"
 else
     echo "Invalid option: $1"
     exit 1

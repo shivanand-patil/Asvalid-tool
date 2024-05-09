@@ -22,8 +22,8 @@ def compare_json(json1, json2, path=""):
     return differences
 
 # Paths to JSON files
-file1_path = '/etc/aerospike/baseline.json'
-file2_path = '/etc/aerospike/dynamic_config.json'
+file1_path = '/opt/asvalid/baseline.json'
+file2_path = '/opt/asvalid/dynamic_config.json'
 
 # Load JSON data from files
 json1 = load_json(file1_path)

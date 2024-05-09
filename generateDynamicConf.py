@@ -77,7 +77,7 @@ def main():
     json_data = json.dumps(cluster_config, indent=4)
 
     # Output to a file
-    with open('/etc/aerospike/dynamic_config.json', 'w') as file:
+    with open('/opt/asvalid/dynamic_config.json', 'w') as file:
         file.write(json_data)
 
 if __name__ == "__main__":
