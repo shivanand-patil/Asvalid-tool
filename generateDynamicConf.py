@@ -67,6 +67,16 @@ def get_cluster_config():
             if namespace_config:
                 config['namespaces'][namespace] = parse_info_to_dict(namespace_config)
 
+    # Fetch and sort IP addresses without ports from 'services' and 'service' commands
+    cluster_nodes = set()
+    for cmd in ['services', 'service']:
+        info = run_asinfo_command(cmd)
+        if info:
+            ips = set(ip.split(':')[0] for ip in info.split(';'))
+            cluster_nodes.update(ips)
+    if cluster_nodes:
+        config['cluster-nodes'] = sorted(cluster_nodes)
+
     return config
 
 def main():
