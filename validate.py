@@ -16,29 +16,6 @@ def parse_memory_size(size, unit):
     else:
         raise ValueError(f"Unrecognized unit '{unit}'")
 
-# def get_local_node_ip():
-#     try:
-#         result = subprocess.run(['asinfo', '-v', 'service'], capture_output=True, text=True, check=True)
-#         local_node = result.stdout.strip().split(':')[0]
-#         return local_node
-#     except subprocess.CalledProcessError as e:
-#         raise Exception("Failed to execute asinfo: " + str(e))
-
-# def get_configured_nodes(conf_path, local_ip):
-#     with open(conf_path, 'r') as file:
-#         conf_content = file.read()
-#     seed_nodes = re.findall(r'^(?!#).*mesh-seed-address-port\s+(\d+\.\d+\.\d+\.\d+)\s+\d+', conf_content, re.MULTILINE)
-#     return set(seed_nodes) - {local_ip}
-
-# def get_cluster_nodes(local_ip):
-#     try:
-#         result = subprocess.run(['asinfo', '-v', 'services'], capture_output=True, text=True, check=True)
-#         cluster_info = result.stdout
-#         cluster_nodes = re.findall(r'(\d+\.\d+\.\d+\.\d+):\d+', cluster_info)
-#         return set(cluster_nodes) - {local_ip}
-#     except subprocess.CalledProcessError as e:
-#         raise Exception("Failed to execute asinfo: " + str(e))
-
 def check_memory_allocation(conf_path):
     with open(conf_path, 'r') as file:
         conf_content = file.read()
@@ -123,27 +100,6 @@ def main():
     parser = argparse.ArgumentParser(description='Check Aerospike cluster configuration and system status.')
     parser.add_argument('conf_path', type=str, help='Path to the Aerospike configuration file')
     args = parser.parse_args()
-
-    # local_ip = get_local_node_ip()
-    # configured_nodes = get_configured_nodes(args.conf_path, local_ip)
-    # cluster_nodes = get_cluster_nodes(local_ip)
-
-    # missing_nodes = configured_nodes.difference(cluster_nodes)
-    # extra_nodes = cluster_nodes.difference(configured_nodes)
-
-    # if missing_nodes:
-    #     print("Warning: The following nodes are configured but not participating in the cluster:")
-    #     for node in missing_nodes:
-    #         print(node)
-    # else:
-    #     print("All configured nodes are participating in the cluster.")
-
-    # if extra_nodes:
-    #     print("Warning: The following nodes are participating in the cluster but not mentioned in the configuration file:")
-    #     for node in extra_nodes:
-    #         print(node)
-    # else:
-    #     print("All participating nodes are mentioned in the configuration file.")
 
     check_memory_allocation(args.conf_path)
     warnings, log_paths = parse_config(args.conf_path)
