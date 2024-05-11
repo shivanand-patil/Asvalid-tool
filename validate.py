@@ -16,28 +16,28 @@ def parse_memory_size(size, unit):
     else:
         raise ValueError(f"Unrecognized unit '{unit}'")
 
-def get_local_node_ip():
-    try:
-        result = subprocess.run(['asinfo', '-v', 'service'], capture_output=True, text=True, check=True)
-        local_node = result.stdout.strip().split(':')[0]
-        return local_node
-    except subprocess.CalledProcessError as e:
-        raise Exception("Failed to execute asinfo: " + str(e))
+# def get_local_node_ip():
+#     try:
+#         result = subprocess.run(['asinfo', '-v', 'service'], capture_output=True, text=True, check=True)
+#         local_node = result.stdout.strip().split(':')[0]
+#         return local_node
+#     except subprocess.CalledProcessError as e:
+#         raise Exception("Failed to execute asinfo: " + str(e))
 
-def get_configured_nodes(conf_path, local_ip):
-    with open(conf_path, 'r') as file:
-        conf_content = file.read()
-    seed_nodes = re.findall(r'^(?!#).*mesh-seed-address-port\s+(\d+\.\d+\.\d+\.\d+)\s+\d+', conf_content, re.MULTILINE)
-    return set(seed_nodes) - {local_ip}
+# def get_configured_nodes(conf_path, local_ip):
+#     with open(conf_path, 'r') as file:
+#         conf_content = file.read()
+#     seed_nodes = re.findall(r'^(?!#).*mesh-seed-address-port\s+(\d+\.\d+\.\d+\.\d+)\s+\d+', conf_content, re.MULTILINE)
+#     return set(seed_nodes) - {local_ip}
 
-def get_cluster_nodes(local_ip):
-    try:
-        result = subprocess.run(['asinfo', '-v', 'services'], capture_output=True, text=True, check=True)
-        cluster_info = result.stdout
-        cluster_nodes = re.findall(r'(\d+\.\d+\.\d+\.\d+):\d+', cluster_info)
-        return set(cluster_nodes) - {local_ip}
-    except subprocess.CalledProcessError as e:
-        raise Exception("Failed to execute asinfo: " + str(e))
+# def get_cluster_nodes(local_ip):
+#     try:
+#         result = subprocess.run(['asinfo', '-v', 'services'], capture_output=True, text=True, check=True)
+#         cluster_info = result.stdout
+#         cluster_nodes = re.findall(r'(\d+\.\d+\.\d+\.\d+):\d+', cluster_info)
+#         return set(cluster_nodes) - {local_ip}
+#     except subprocess.CalledProcessError as e:
+#         raise Exception("Failed to execute asinfo: " + str(e))
 
 def check_memory_allocation(conf_path):
     with open(conf_path, 'r') as file:

@@ -4,9 +4,9 @@
 display_usage() {
     echo "Usage: asvalid [option] [arguments]"
     echo "Options:"
-    echo "  compare                          Generate and compare dynamic configuration values with aerospike.conf"
-    echo "  validate <file>                  Validate a configuration file against the Aerospike schema."
-    echo "  verify                           Validate the configuration file against the Aerospike schema and then compare it."
+    echo "	asvalid compare                          Generate and compare dynamic configuration values with aerospike.conf"
+    echo "	asvalid validate <file>                  Validate a configuration file against the Aerospike schema."
+    echo "	asvalid verify                           Validate the configuration file against the Aerospike schema and then compare it."
 }
 
 # Function to validate a configuration file

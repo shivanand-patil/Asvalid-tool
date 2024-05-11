@@ -18,8 +18,8 @@ def compare_json(json1, json2, path=""):
         elif json1[key] != json2[key]:
             # Base case: differing values
            difference_description = f"{full_path}:\n"\
-                         f"\taerospike.conf = {json1[key]}\n"\
-                         f"\tDynamic cluster value = {json2[key]}"
+                         f"\t- aerospike.conf = {json1[key]}\n"\
+                         f"\t- live cluster value = {json2[key]}"
            differences.append(difference_description)
     return differences
 
