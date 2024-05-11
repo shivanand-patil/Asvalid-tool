@@ -124,26 +124,26 @@ def main():
     parser.add_argument('conf_path', type=str, help='Path to the Aerospike configuration file')
     args = parser.parse_args()
 
-    local_ip = get_local_node_ip()
-    configured_nodes = get_configured_nodes(args.conf_path, local_ip)
-    cluster_nodes = get_cluster_nodes(local_ip)
+    # local_ip = get_local_node_ip()
+    # configured_nodes = get_configured_nodes(args.conf_path, local_ip)
+    # cluster_nodes = get_cluster_nodes(local_ip)
 
-    missing_nodes = configured_nodes.difference(cluster_nodes)
-    extra_nodes = cluster_nodes.difference(configured_nodes)
+    # missing_nodes = configured_nodes.difference(cluster_nodes)
+    # extra_nodes = cluster_nodes.difference(configured_nodes)
 
-    if missing_nodes:
-        print("Warning: The following nodes are configured but not participating in the cluster:")
-        for node in missing_nodes:
-            print(node)
-    else:
-        print("All configured nodes are participating in the cluster.")
+    # if missing_nodes:
+    #     print("Warning: The following nodes are configured but not participating in the cluster:")
+    #     for node in missing_nodes:
+    #         print(node)
+    # else:
+    #     print("All configured nodes are participating in the cluster.")
 
-    if extra_nodes:
-        print("Warning: The following nodes are participating in the cluster but not mentioned in the configuration file:")
-        for node in extra_nodes:
-            print(node)
-    else:
-        print("All participating nodes are mentioned in the configuration file.")
+    # if extra_nodes:
+    #     print("Warning: The following nodes are participating in the cluster but not mentioned in the configuration file:")
+    #     for node in extra_nodes:
+    #         print(node)
+    # else:
+    #     print("All participating nodes are mentioned in the configuration file.")
 
     check_memory_allocation(args.conf_path)
     warnings, log_paths = parse_config(args.conf_path)
@@ -158,3 +158,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
