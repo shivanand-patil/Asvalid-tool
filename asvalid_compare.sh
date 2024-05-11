@@ -10,6 +10,10 @@ mkdir -p "$output_directory"
 version=$(asd --version | awk '{print $5}' )
 
 asconfig convert --aerospike-version "$version" --output /opt/asvalid/aerospike.yaml /etc/aerospike/aerospike.conf
+if [ $? -ne 0 ]; then
+  echo "Failed to convert conf to yaml, see above"
+  exit 1
+fi
 
 # Run yamlParser.py using Python interpreter
 python3 $base_path/yamlParser.py
