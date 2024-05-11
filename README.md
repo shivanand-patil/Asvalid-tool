@@ -9,7 +9,8 @@
 ```bash
 Usage: asvalid [option] [arguments]
 Options:
-  compare             Generates and  Compare dynamic configuration values with aerospike.conf
-  validate <file>     Validate a configuration file against the Aerospike schema.
+  compare                          Generate and compare dynamic configuration values with aerospike.conf
+  validate <file>                  Validate a configuration file against the Aerospike schema.
+  verify                           Validate the configuration file against the Aerospike schema and then compare it.
 ```
 
