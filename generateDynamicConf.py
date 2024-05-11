@@ -67,6 +67,16 @@ def get_cluster_config():
             if namespace_config:
                 config['namespaces'][namespace] = parse_info_to_dict(namespace_config)
 
+    # Fetch and sort IP addresses without ports from 'services' and 'service' commands
+    cluster_nodes = set()
+    for cmd in ['services', 'service']:
+        info = run_asinfo_command(cmd)
+        if info:
+            ips = set(ip.split(':')[0] for ip in info.split(';'))
+            cluster_nodes.update(ips)
+    if cluster_nodes:
+        config['cluster-nodes'] = sorted(cluster_nodes)
+
     return config
 
 def main():
@@ -77,7 +87,7 @@ def main():
     json_data = json.dumps(cluster_config, indent=4)
 
     # Output to a file
-    with open('/etc/aerospike/dynamic_config.json', 'w') as file:
+    with open('/opt/asvalid/dynamic_config.json', 'w') as file:
         file.write(json_data)
 
 if __name__ == "__main__":

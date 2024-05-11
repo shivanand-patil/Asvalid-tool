@@ -17,13 +17,15 @@ def compare_json(json1, json2, path=""):
                 differences.extend(deeper_diff)
         elif json1[key] != json2[key]:
             # Base case: differing values
-            difference_description = f"{full_path}: > {json1[key]} < {json2[key]}"
-            differences.append(difference_description)
+           difference_description = f"{full_path}:\n"\
+                         f"\taerospike.conf = {json1[key]}\n"\
+                         f"\tDynamic cluster value = {json2[key]}"
+           differences.append(difference_description)
     return differences
 
 # Paths to JSON files
-file1_path = '/etc/aerospike/baseline.json'
-file2_path = '/etc/aerospike/dynamic_config.json'
+file1_path = '/opt/asvalid/baseline.json'
+file2_path = '/opt/asvalid/dynamic_config.json'
 
 # Load JSON data from files
 json1 = load_json(file1_path)
@@ -34,7 +36,7 @@ differences = compare_json(json1, json2)
 
 # Print the differences in a concise format
 if differences:
-    print("Differences found:")
+    print("Configuration differences found:")
     for diff in differences:
         print(diff)
 

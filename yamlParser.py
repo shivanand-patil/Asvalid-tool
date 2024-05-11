@@ -17,22 +17,23 @@ def load_yaml_config(file_path):
         return yaml.safe_load(file)
 
 # Load the YAML configuration
-config_path = '/etc/aerospike/aerospike.yaml'  # Path to your aerospike.conf file
+config_path = '/opt/asvalid/aerospike.yaml'
 aerospike_config = load_yaml_config(config_path)
 
 # Extract namespaces
 namespaces = aerospike_config.pop('namespaces', [])
-
-# Convert namespaces list to a dictionary
 namespaces_dict = {ns['name']: ns for ns in namespaces}
-
-# Update aerospike_config with modified namespaces dictionary
 aerospike_config['namespaces'] = namespaces_dict
 
-# Convert all values to strings and enclose them in double quotes
+# Extracting and sorting IPs without ports for cluster-nodes
+if 'network' in aerospike_config and 'heartbeat' in aerospike_config['network'] and 'mesh-seed-address-ports' in aerospike_config['network']['heartbeat']:
+    ips = [ip.split(':')[0] for ip in aerospike_config['network']['heartbeat']['mesh-seed-address-ports']]
+    aerospike_config['cluster-nodes'] = sorted(set(ips))  # Remove duplicates and sort
+
+# Convert all values to strings
 aerospike_config_str = convert_to_str(aerospike_config)
 
-# Open a file where you want to store the output in double-quoted JSON format
-with open('/etc/aerospike/baseline.json', 'w') as f:
-    # Dump the dictionary to a file with JSON formatting, ensuring it's pretty-printed
+# Output JSON
+with open('/opt/asvalid/baseline.json', 'w') as f:
     json.dump(aerospike_config_str, f, indent=4)
+

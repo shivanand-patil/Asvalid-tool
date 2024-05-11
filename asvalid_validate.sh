@@ -16,11 +16,12 @@ file_path="$1"
 
 version=$(asd --version | awk '{print $5}' )
 
-echo "Structure is good. Evaluating $file_path against version $version config schema."
+echo "Evaluating $file_path against version $version config schema."
 
 if asconfig validate --aerospike-version "$version" "$file_path"; then
    	
 	echo "Validation successful for Aerospike version $version."
 else
   	echo "Validation failed for Aerospike version $version"
+	exit 1
 fi
