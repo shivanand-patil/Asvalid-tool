@@ -42,6 +42,7 @@ def parse_config(file_path):
     warnings = []
     logging_paths = []
     tls_config_found = False
+    namespace_rep_factors = {}
 
     for line_number, line in enumerate(config_lines, start=1):
         line = line.strip()
@@ -57,14 +58,18 @@ def parse_config(file_path):
             if not section_stack:
                 warnings.append(f"Warning at line {line_number}: Extra closing curly brace '}}'.")
             else:
-                section_stack.pop()
+                last_section, _ = section_stack.pop()
+                if last_section == 'namespace' and current_namespace not in namespace_rep_factors:
+                    warnings.append(f"Warning: 'replication-factor' is missing for namespace '{current_namespace}'.")
 
         if line.startswith('namespace'):
-            namespace_name = line.split()[1]
+            current_namespace = line.split()[1]
             namespace_count += 1
-            if namespace_name in namespace_names:
-                warnings.append(f"Warning at line {line_number}: Duplicate namespace '{namespace_name}' found.")
-            namespace_names.add(namespace_name)
+            if current_namespace in namespace_names:
+                warnings.append(f"Warning at line {line_number}: Duplicate namespace '{current_namespace}' found.")
+            namespace_names.add(current_namespace)
+        if line.startswith('replication-factor'):
+            namespace_rep_factors[current_namespace] = line.split()[1]
         if line.startswith('file'):
             path = line.split()[1]
             logging_paths.append(path)
@@ -89,12 +94,16 @@ def check_log_drive_conflicts(log_paths):
 def check_storage_device_space(conf_path):
     with open(conf_path, 'r') as file:
         conf_content = file.read()
-    device_configs = re.findall(r'namespace\s+\S+.*?storage-engine device.*?file\s+(\S+).*?filesize\s+(\d+)([KMG])', conf_content, re.DOTALL)
+
+    # Regular expression to match file and filesize under any storage-engine configuration
+    device_configs = re.findall(r'namespace\s+\S+.*?storage-engine \S+.*?file\s+(\S+).*?filesize\s+(\d+)([KMG])', conf_content, re.DOTALL | re.IGNORECASE)
+    
     for file_path, size, unit in device_configs:
         required_space = parse_memory_size(size, unit)
         free_space = psutil.disk_usage(os.path.dirname(file_path)).free
         if required_space > free_space:
             print(f"Warning: Not enough space for {file_path} ({required_space} bytes required, {free_space} bytes available).")
+
 
 def main():
     parser = argparse.ArgumentParser(description='Check Aerospike cluster configuration and system status.')
