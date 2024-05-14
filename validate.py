@@ -97,18 +97,18 @@ def check_log_drive_conflicts(log_paths):
             if os.path.splitdrive(path)[0] == system_drive:
                 print(f"Warning: file {path} is on the system drive.")
 
-def check_storage_device_space(conf_path):
-    with open(conf_path, 'r') as file:
-        conf_content = file.read()
+# def check_storage_device_space(conf_path):
+#     with open(conf_path, 'r') as file:
+#         conf_content = file.read()
 
-    # Regular expression to match file and filesize under any storage-engine configuration
-    device_configs = re.findall(r'namespace\s+\S+.*?storage-engine \S+.*?file\s+(\S+).*?filesize\s+(\d+)([KMG])', conf_content, re.DOTALL | re.IGNORECASE)
+#     # Regular expression to match file and filesize under any storage-engine configuration
+#     device_configs = re.findall(r'namespace\s+\S+.*?storage-engine \S+.*?file\s+(\S+).*?filesize\s+(\d+)([KMG])', conf_content, re.DOTALL | re.IGNORECASE)
 
-    for file_path, size, unit in device_configs:
-        required_space = parse_memory_size(size, unit)
-        free_space = psutil.disk_usage(os.path.dirname(file_path)).free
-        if required_space > free_space:
-            print(f"Warning: Not enough space for {file_path} ({required_space} bytes required, {free_space} bytes available).")
+#     for file_path, size, unit in device_configs:
+#         required_space = parse_memory_size(size, unit)
+#         free_space = psutil.disk_usage(os.path.dirname(file_path)).free
+#         if required_space > free_space:
+#             print(f"Warning: Not enough space for {file_path} ({required_space} bytes required, {free_space} bytes available).")
 
 def main():
     parser = argparse.ArgumentParser(description='Check Aerospike cluster configuration and system status.')
@@ -118,7 +118,7 @@ def main():
     check_memory_allocation(args.conf_path)
     warnings, log_paths = parse_config(args.conf_path)
     check_log_drive_conflicts(log_paths)
-    check_storage_device_space(args.conf_path)
+    # check_storage_device_space(args.conf_path)
 
     if warnings:
         for warning in warnings:
