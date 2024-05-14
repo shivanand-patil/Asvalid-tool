@@ -67,6 +67,9 @@ def parse_config(file_path):
             namespace_count += 1
             if current_namespace in namespace_names:
                 warnings.append(f"Warning at line {line_number}: Duplicate namespace '{current_namespace}' found.")
+                for warning in warnings:
+                    print(warning)
+                sys.exit(1)
             namespace_names.add(current_namespace)
         if line.startswith('replication-factor'):
             namespace_rep_factors[current_namespace] = line.split()[1]
@@ -81,6 +84,9 @@ def parse_config(file_path):
     if section_stack:
         for section_name, line_number in section_stack:
             warnings.append(f"Warning: Section '{section_name}' opened at line {line_number} is not closed.")
+            for warning in warnings:
+                print(warning)
+            sys.exit(1)
 
     return warnings, logging_paths
 
@@ -103,7 +109,6 @@ def check_storage_device_space(conf_path):
         free_space = psutil.disk_usage(os.path.dirname(file_path)).free
         if required_space > free_space:
             print(f"Warning: Not enough space for {file_path} ({required_space} bytes required, {free_space} bytes available).")
-
 
 def main():
     parser = argparse.ArgumentParser(description='Check Aerospike cluster configuration and system status.')
