@@ -103,7 +103,7 @@ def check_storage_device_space(conf_path):
 
     # Regular expression to match file and filesize under any storage-engine configuration
     device_configs = re.findall(r'namespace\s+\S+.*?storage-engine \S+.*?file\s+(\S+).*?filesize\s+(\d+)([KMG])', conf_content, re.DOTALL | re.IGNORECASE)
-    
+
     for file_path, size, unit in device_configs:
         required_space = parse_memory_size(size, unit)
         free_space = psutil.disk_usage(os.path.dirname(file_path)).free
@@ -128,4 +128,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
