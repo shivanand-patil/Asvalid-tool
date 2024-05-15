@@ -52,6 +52,7 @@ Options:
 
 # SaltStack Flow
 
-![image](https://github.com/shivanand-patil/Asvalid-tool/assets/70444072/0b381f4d-d54e-4666-8c12-94040a71be7f)
+![image](https://github.com/shivanand-patil/Asvalid-tool/assets/70444072/5e6433ac-48ea-4599-9e3b-5e2312a47e23)
+
 
 
