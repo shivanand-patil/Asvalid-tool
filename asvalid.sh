@@ -34,9 +34,9 @@ fi
 
 # Check options
 case "$1" in
-    compare)
-        compare_config
-        ;;
+    # compare)
+    #     compare_config
+    #     ;;
     validate)
         if [ $# -ne 2 ]; then
             echo "Error: Missing argument for 'validate'."
