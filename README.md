@@ -8,11 +8,10 @@
 ## Use Cases
 
 ```bash
+Usage: asvalid [option] [arguments]
 Options:
-	asvalid validate <file>                  Validate a configuration file against the Aerospike schema
-	asvalid compare                          Generate and compare dynamic configuration values with aerospike.conf
-	asvalid verify                           Validates the configuration file against the Aerospike schema
- 					         and then compares its static values to values from running node
+	asvalid validate <file>                  Validate a configuration file against the Aerospike schema.
+	asvalid verify                           Validate and compare live cluster values to static conf values.
 ```
 
 # Examples
@@ -28,21 +27,7 @@ Options:
 	Validation successful for Aerospike version 7.0.0.7.
 ```
 
-2. asvalid compare
-```bash
-	root@VM-1:/home/ubuntu# asvalid compare
-
-	Configuration differences found:
-	service.proto-fd-max:
-		- aerospike.conf = 15000
-		- live cluster value = 1500
-	namespaces.test-new.replication-factor:
-		- aerospike.conf = 2
-		- live cluster value = 6
-	Output stored in /opt/asvalid/conf_change_history/2024-05-12_02-25-43.txt
-```
-
-3. asvalid verify
+2. asvalid verify
 ```bash
 	root@VM-1:/home/ubuntu# asvalid verify
 
@@ -63,6 +48,6 @@ Options:
 ```
 # Flow
 
-[![](https://mermaid.ink/img/pako:eNqFk9tq20AQhl9l2CsFkjyAC4XEdgxOWrt1WijoZirN2tNIu2IPLibOu3dPiuM2UF0Iaeebw_-P9Cwa3ZKYiK3BYQePsw-1gnDdVGj32HF7AVdXH4_lBdIdHR3hNnO31RqNpfyC6gDXjVYSJHeUMmFaTXfUPIHUBgY02JMjYy9ywjQhs-p7KQu_2e0AbazB2wLNEvS1mhujjc1nHFpor9rY8gybVyvvBu_GSVmrEC-azqQ0ug_zBCV3OXqXlQCS0XbgJ0pKRmGRV3syDpyGHzefHsBbVtvTrKn7okqhgCw3q8-nXIv7UNjCT7TUsaLrXzbNFeOLlAnLakGKTDShPSjsuUkQSKN7MF6p2C1nNJ23wcTXCVhJHeX0odXo7DJVva-mWWWaJ21lBO4TsCmuwru2viUfRmNblpIMqSaVet_bYBTLwxFWObg6LTjP3JJE3zl46926zMpRNcoo8GyHqVAiv41Dc1nPiQOJ3I0S14l-_N-Hk7Ev_344cXUZ-Uu0uBQ9mR65DT_Oc0Rq4XbUUy0m4bGoq0WtXgKK3unNQTVi4oynS-GH6MSMMfxyvZhI7Ozr6bxlp005fPkDHswngg?type=png)](https://mermaid-live-editor.fly.dev/edit#pako:eNqFk9tq20AQhl9l2CsFkjyAC4XEdgxOWrt1WijoZirN2tNIu2IPLibOu3dPiuM2UF0Iaeebw_-P9Cwa3ZKYiK3BYQePsw-1gnDdVGj32HF7AVdXH4_lBdIdHR3hNnO31RqNpfyC6gDXjVYSJHeUMmFaTXfUPIHUBgY02JMjYy9ywjQhs-p7KQu_2e0AbazB2wLNEvS1mhujjc1nHFpor9rY8gybVyvvBu_GSVmrEC-azqQ0ug_zBCV3OXqXlQCS0XbgJ0pKRmGRV3syDpyGHzefHsBbVtvTrKn7okqhgCw3q8-nXIv7UNjCT7TUsaLrXzbNFeOLlAnLakGKTDShPSjsuUkQSKN7MF6p2C1nNJ23wcTXCVhJHeX0odXo7DJVva-mWWWaJ21lBO4TsCmuwru2viUfRmNblpIMqSaVet_bYBTLwxFWObg6LTjP3JJE3zl46926zMpRNcoo8GyHqVAiv41Dc1nPiQOJ3I0S14l-_N-Hk7Ev_344cXUZ-Uu0uBQ9mR65DT_Oc0Rq4XbUUy0m4bGoq0WtXgKK3unNQTVi4oynS-GH6MSMMfxyvZhI7Ozr6bxlp005fPkDHswngg)
+[![](https://mermaid.ink/img/pako:eNptU39r2zAQ_SqHoKBC2w-QwiBN0kDazmPZBoP8c7NPiVZLMvqREZp-98knu15g_sNYd-_u3nsnv4naNSRmYu-xO8C35f3OQn7mEsMRW91cw-3tp_NwAH5jpDM8FNyD_II-UDmgPcFd7awCpVviSljIxYHqV1DOQ4ceDUXy4boULBiylD-GtvBHxwNg6Hvo_QBaMuirXHnvfCgxnUe4ZJt-5AVsJasUuxRHptrZnC-IqyuYX6ipncmUspjHAngsYgDJu9DpV2Ixo7Yeb4_kI0QHP-cvz5CCtvuJLhNYS05lyGZbfZ5qAx5z4wC_MFCrLd39Dkytz6-5EjZyTZZ870Nzsmh0zSBQ3hnwydp-Wqmo2xSyjx8MtFWul2PyqNHcDXd9kouikvnwYkbAEwO2g7HwX2f_RT6P3jZaKfJka241gi69zUZpdTpDVZLVtOOGFKY2DtZcWM0WDsuoeOZ3OS0SFOp2ugBUaDNbVrSz4kYY8gZ1k2_0G8dEPJChnZjlz3Gy2Nn3DMUU3fZkazGLPtGNSF3Pb6kx_wtGzBS24SO6anR0fgi-_wU3OwXI?type=png)](https://mermaid-live-editor.fly.dev/edit#pako:eNptU39r2zAQ_SqHoKBC2w-QwiBN0kDazmPZBoP8c7NPiVZLMvqREZp-98knu15g_sNYd-_u3nsnv4naNSRmYu-xO8C35f3OQn7mEsMRW91cw-3tp_NwAH5jpDM8FNyD_II-UDmgPcFd7awCpVviSljIxYHqV1DOQ4ceDUXy4boULBiylD-GtvBHxwNg6Hvo_QBaMuirXHnvfCgxnUe4ZJt-5AVsJasUuxRHptrZnC-IqyuYX6ipncmUspjHAngsYgDJu9DpV2Ixo7Yeb4_kI0QHP-cvz5CCtvuJLhNYS05lyGZbfZ5qAx5z4wC_MFCrLd39Dkytz6-5EjZyTZZ870Nzsmh0zSBQ3hnwydp-Wqmo2xSyjx8MtFWul2PyqNHcDXd9kouikvnwYkbAEwO2g7HwX2f_RT6P3jZaKfJka241gi69zUZpdTpDVZLVtOOGFKY2DtZcWM0WDsuoeOZ3OS0SFOp2ugBUaDNbVrSz4kYY8gZ1k2_0G8dEPJChnZjlz3Gy2Nn3DMUU3fZkazGLPtGNSF3Pb6kx_wtGzBS24SO6anR0fgi-_wU3OwXI)
 
 
