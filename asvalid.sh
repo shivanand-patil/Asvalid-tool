@@ -9,8 +9,6 @@ display_usage() {
     echo "	asvalid verify                           Validate and compare live cluster values to static conf values"
 }
 
-bash /usr/local/bin/asvalid-tool/cron.sh
-
 # Function to validate a configuration file
 validate_config() {
     local config_file="$1"
