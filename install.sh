@@ -28,5 +28,8 @@ sudo chmod +x /usr/local/bin/asvalid-tool/*.sh
 # Create symbolic link
 sudo ln -sf /usr/local/bin/asvalid-tool/asvalid.sh /usr/local/bin/asvalid
 
+# Install cron
+bash /usr/local/bin/asvalid-tool/cron.sh
+
 echo "Installation complete."
 
