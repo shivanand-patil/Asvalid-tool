@@ -4,8 +4,7 @@
 display_usage() {
     echo "Usage: asvalid [option] [arguments]"
     echo "Options:"
-    # echo "	asvalid compare                          Generate and compare dynamic configuration values with aerospike.conf"
-    echo "	asvalid validate <file>                  Validate a configuration file against the Aerospike schema."
+    echo "	asvalid validate <file>                  Validate a configuration file against the Aerospike schema"
     echo "	asvalid verify                           Validate and compare live cluster values to static conf values"
 }
 
@@ -13,7 +12,7 @@ display_usage() {
 validate_config() {
     local config_file="$1"
     if [ ! -f "$config_file" ]; then
-        echo "Error: Configuration file '$config_file' not found."
+        echo "Error: Configuration file '$config_file' not found"
         exit 1
     fi
     # Execute asvalid validate <file>
@@ -22,8 +21,22 @@ validate_config() {
 
 # Function to compare configuration values
 compare_config() {
-    # Execute asvalid compare
-    bash /usr/local/bin/asvalid-tool/asvalid_compare.sh
+    # Execute asvalid compare and capture its output
+    local output=$(bash /usr/local/bin/asvalid-tool/asvalid_compare.sh)
+    echo "$output"
+    if [ $? -eq 0 ] && [ ! -z "$output" ]; then
+        log_output "$output"
+    fi
+}
+
+# Function to log output with timestamps
+log_output() {
+    local log_file="/opt/asvalid/asvalid.log"
+    local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+    # Add timestamp to each line of the output
+    while IFS= read -r line; do
+        echo "[$timestamp] $line" >> "$log_file"
+    done <<< "$1"
 }
 
 # Display usage if no arguments provided
@@ -34,12 +47,9 @@ fi
 
 # Check options
 case "$1" in
-    # compare)
-    #     compare_config
-    #     ;;
     validate)
         if [ $# -ne 2 ]; then
-            echo "Error: Missing argument for 'validate'."
+            echo "Error: Missing argument for 'validate'"
             display_usage
             exit 1
         fi
@@ -51,12 +61,13 @@ case "$1" in
         if [ $? -eq 0 ]; then
             compare_config
         else
-            echo "Validation failed. Cannot proceed with comparison."
+            echo "Validation failed, cannot proceed with comparison"
+            log_output "Validation failed, cannot proceed with comparison"
             exit 1
         fi
         ;;
     *)
-        echo "Error: Invalid option '$1'."
+        echo "Error: Invalid option '$1'"
         display_usage
         exit 1
         ;;

@@ -8,7 +8,7 @@ fi
 python3 "$(dirname "$(realpath "$0")")/validate.py" "$1"
 
 if [ $? -ne 0 ]; then
-    echo "Structure not good, validate.py encountered errors. Exiting."
+    echo "Structure not good, asvalid encountered errors. Exiting...."
     exit 1
 fi
 
@@ -20,7 +20,7 @@ echo "Evaluating $file_path against version $version config schema."
 
 if asconfig validate --aerospike-version "$version" "$file_path"; then
    	
-	echo "Validation successful for Aerospike version $version."
+	echo "Validation successful for Aerospike version $version"
 else
   	echo "Validation failed for Aerospike version $version"
 	exit 1

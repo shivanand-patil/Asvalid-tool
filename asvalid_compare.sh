@@ -36,16 +36,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Display the output
-echo "$output"
+# Display the output only if it is not empty
+if [ -n "$output" ]; then
+  echo "$output"
 
-# Save the output to a file only if it is not empty
-if [ ! -z "$output" ]; then
+  # Save the output to a file
   output_file="${output_directory}/$(date +"%Y-%m-%d_%H-%M-%S").txt"
   echo "$output" > "$output_file"
   echo "Output stored in $output_file"
 else
-  echo "No output to save."
+  echo -n "No differences found between static and dynamic values"
 fi
-
-
