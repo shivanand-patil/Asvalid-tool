@@ -39,4 +39,6 @@ if differences:
     print("Configuration differences found:")
     for diff in differences:
         print(diff)
+else:
+    print("No differences found between static and dynamic values")
 
