@@ -5,7 +5,7 @@ output_directory="/opt/asvalid/conf_change_history"
 base_path="/usr/local/bin/asvalid-tool"
 
 # Create the output directory if it does not exist
-mkdir -p "$output_directory"
+# mkdir -p "$output_directory"
 
 version=$(asd --version | awk '{print $5}' )
 
@@ -36,14 +36,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Display the output only if it is not empty
-if [ -n "$output" ]; then
-  echo "$output"
+# # Display the output only if it is not empty
+# if [ -n "$output" ]; then
+echo "$output"
 
   # Save the output to a file
-  output_file="${output_directory}/$(date +"%Y-%m-%d_%H-%M-%S").txt"
-  echo "$output" > "$output_file"
-  echo "Output stored in $output_file"
-else
-  echo -n "No differences found between static and dynamic values"
-fi
+#   output_file="${output_directory}/$(date +"%Y-%m-%d_%H-%M-%S").txt"
+#   echo "$output" > "$output_file"
+#   echo "Output stored in $output_file"
+# else
+#   echo -n "No differences found between static and dynamic values"
+# fi
