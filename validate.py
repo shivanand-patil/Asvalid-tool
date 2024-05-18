@@ -30,7 +30,7 @@ def check_memory_allocation(conf_path):
     total_allocated_memory_gib = total_allocated_memory / (1024**3)
     total_system_memory_gib = total_system_memory / (1024**3)
     if total_allocated_memory > total_system_memory:
-        print(f"Warning: Total configured data-size and memory-size ({total_allocated_memory_gib:.2f} GiB) exceeds system memory ({total_system_memory_gib:.2f} GiB)")
+        print(f"Warning: Total configured data-size or memory-size ({total_allocated_memory_gib:.2f} GiB) exceeds system memory ({total_system_memory_gib:.2f} GiB)")
 
 def parse_config(file_path):
     with open(file_path, 'r') as file:
