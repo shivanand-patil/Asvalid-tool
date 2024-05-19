@@ -48,7 +48,8 @@ Options:
 ```
 # Flow of the tool
 
-![image](https://github.com/shivanand-patil/Asvalid-tool/assets/70444072/43a2459f-6443-468d-b43a-37c0e87f1bd8)
+<img width="1009" alt="Screenshot 2024-05-19 at 8 06 11 PM" src="https://github.com/shivanand-patil/Asvalid-tool/assets/70444072/d3287539-55f7-4b25-996b-6fb647d7a2e7">
+
 
 
 # SaltStack Flow
