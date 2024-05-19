@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Directory to store output files of the compareConfig.py
-output_directory="/opt/asvalid/conf_change_history"
+# Directory to store output files 
+output_directory="/opt/asvalid"
 base_path="/usr/local/bin/asvalid-tool"
 
 # Create the output directory if it does not exist
-# mkdir -p "$output_directory"
+mkdir -p "$output_directory"
 
 version=$(asd --version | awk '{print $5}' )
 
