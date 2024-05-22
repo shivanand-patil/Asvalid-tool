@@ -6,6 +6,16 @@ import psutil
 import os
 
 def parse_memory_size(size, unit):
+    """ 
+    Parse memory size and convert it to bytes.
+    
+    Args:
+        size (int): The memory size.
+        unit (str): The unit of memory (K, M, G).
+        
+    Returns:
+        int: The memory size in bytes.
+    """
     size = int(size)
     if unit.upper() == 'K':
         return size * 1024
@@ -17,6 +27,12 @@ def parse_memory_size(size, unit):
         raise ValueError(f"Unrecognized unit '{unit}'")
 
 def check_memory_allocation(conf_path):
+    """ 
+    Check the memory allocation in the Aerospike configuration file and compare it to system memory.
+    
+    Args:
+        conf_path (str): The path to the Aerospike configuration file.
+    """
     with open(conf_path, 'r') as file:
         conf_content = file.read()
     size_patterns = re.findall(r'^(?!#).*\b(data-size|memory-size)\s+(\d+)([KMG])', conf_content, re.IGNORECASE | re.MULTILINE)
@@ -33,6 +49,15 @@ def check_memory_allocation(conf_path):
         print(f"Warning: Total configured data-size or memory-size ({total_allocated_memory_gib:.2f} GiB) exceeds system memory ({total_system_memory_gib:.2f} GiB)")
 
 def parse_config(file_path):
+    """ 
+    Parse the Aerospike configuration file and identify potential issues.
+    
+    Args:
+        file_path (str): The path to the Aerospike configuration file.
+        
+    Returns:
+        tuple: A tuple containing a list of warnings and a list of logging paths.
+    """
     with open(file_path, 'r') as file:
         config_lines = file.readlines()
 
@@ -91,6 +116,12 @@ def parse_config(file_path):
     return warnings, logging_paths
 
 def check_log_drive_conflicts(log_paths):
+    """ 
+    Check if log files are on the system drive.
+    
+    Args:
+        log_paths (list): A list of paths to log files.
+    """
     system_drive = os.path.splitdrive(sys.executable)[0]
     for path in log_paths:
         if "/log/" in path or path.endswith(".log"):  # Check if path is likely a log file
@@ -98,12 +129,18 @@ def check_log_drive_conflicts(log_paths):
                 print(f"Warning: file {path} is on the system drive.")
 
 # def check_storage_device_space(conf_path):
+#     """
+#     Check if there is enough space on storage devices configured in the Aerospike configuration.
+#
+#     Args:
+#         conf_path (str): The path to the Aerospike configuration file.
+#     """
 #     with open(conf_path, 'r') as file:
 #         conf_content = file.read()
-
+#
 #     # Regular expression to match file and filesize under any storage-engine configuration
 #     device_configs = re.findall(r'namespace\s+\S+.*?storage-engine \S+.*?file\s+(\S+).*?filesize\s+(\d+)([KMG])', conf_content, re.DOTALL | re.IGNORECASE)
-
+#
 #     for file_path, size, unit in device_configs:
 #         required_space = parse_memory_size(size, unit)
 #         free_space = psutil.disk_usage(os.path.dirname(file_path)).free
@@ -111,6 +148,9 @@ def check_log_drive_conflicts(log_paths):
 #             print(f"Warning: Not enough space for {file_path} ({required_space} bytes required, {free_space} bytes available).")
 
 def main():
+    """ 
+    Main function to check the Aerospike cluster configuration and system status.
+    """
     parser = argparse.ArgumentParser(description='Check Aerospike cluster configuration and system status.')
     parser.add_argument('conf_path', type=str, help='Path to the Aerospike configuration file')
     args = parser.parse_args()
