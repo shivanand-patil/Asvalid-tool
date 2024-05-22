@@ -2,6 +2,15 @@ import yaml
 import json
 
 def convert_to_str(obj):
+    """
+    Recursively convert all values in a dictionary or list to strings.
+    
+    Args:
+        obj (dict or list): The input dictionary or list to be converted.
+        
+    Returns:
+        dict or list: The converted dictionary or list with all values as strings.
+    """
     if isinstance(obj, dict):
         return {str(k): convert_to_str(v) for k, v in obj.items()}
     elif isinstance(obj, list):
@@ -11,8 +20,16 @@ def convert_to_str(obj):
     else:
         return str(obj)
 
-# Function to load a YAML configuration file into a Python dictionary
 def load_yaml_config(file_path):
+    """
+    Load a YAML configuration file into a Python dictionary.
+    
+    Args:
+        file_path (str): The path to the YAML configuration file.
+        
+    Returns:
+        dict: The loaded configuration as a dictionary.
+    """
     with open(file_path, 'r') as file:
         return yaml.safe_load(file)
 
@@ -36,4 +53,3 @@ aerospike_config_str = convert_to_str(aerospike_config)
 # Output JSON
 with open('/opt/asvalid/baseline.json', 'w') as f:
     json.dump(aerospike_config_str, f, indent=4)
-
