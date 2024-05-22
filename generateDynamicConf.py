@@ -2,7 +2,15 @@ import subprocess
 import json
 
 def run_asinfo_command(command):
-    """ Run the asinfo command with specified parameters and return the output. """
+    """ 
+    Run the asinfo command with specified parameters and return the output.
+    
+    Args:
+        command (str): The asinfo command to run.
+        
+    Returns:
+        str: The output from the asinfo command.
+    """
     try:
         result = subprocess.check_output(['asinfo', '-v', command], text=True)
         return result.strip()
@@ -11,11 +19,19 @@ def run_asinfo_command(command):
         return None
 
 def parse_info_to_dict(info_str):
-    """ Convert asinfo string output to a nested dictionary based on prefixes,
-        supporting multiple values for the same keys. """
+    """ 
+    Convert asinfo string output to a nested dictionary based on prefixes,
+    supporting multiple values for the same keys.
+    
+    Args:
+        info_str (str): The asinfo command output as a string.
+        
+    Returns:
+        dict: The parsed information as a nested dictionary.
+    """
     info_dict = {}
     for pair in info_str.split(';'):
-        if '=' in pair:
+        if ('=' in pair):
             key, value = pair.split('=', 1)
             key_parts = key.strip().split('.')
             sub_dict = info_dict
@@ -44,7 +60,12 @@ def parse_info_to_dict(info_str):
     return info_dict
 
 def get_cluster_config():
-    """ Get the entire cluster configuration and return it as a dictionary. """
+    """ 
+    Get the entire cluster configuration and return it as a dictionary.
+    
+    Returns:
+        dict: The cluster configuration as a dictionary.
+    """
     config = {}
 
     # Get service configuration
@@ -80,6 +101,9 @@ def get_cluster_config():
     return config
 
 def main():
+    """ 
+    Main function to retrieve the cluster configuration and save it as a JSON file.
+    """
     # Retrieve configuration
     cluster_config = get_cluster_config()
 
@@ -92,4 +116,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
