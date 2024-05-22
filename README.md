@@ -11,7 +11,7 @@
 Usage: asvalid [option] [arguments]
 Options:
 	asvalid validate <file>                  Validate a configuration file against the Aerospike schema.
-	asvalid verify                           Validate and compare live cluster values to static conf values.
+	asvalid verify                           Validate and compare live cluster values to values mentioned in config file.
 ```
 
 # Examples
