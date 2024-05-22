@@ -1,10 +1,30 @@
 import json
 
 def load_json(file_path):
+    """
+    Load JSON data from a file.
+    
+    Args:
+        file_path (str): The path to the JSON file.
+        
+    Returns:
+        dict: The loaded JSON data as a dictionary.
+    """
     with open(file_path, 'r') as file:
         return json.load(file)
 
 def compare_json(json1, json2, path=""):
+    """
+    Compare two JSON objects and find differences.
+    
+    Args:
+        json1 (dict): The first JSON object.
+        json2 (dict): The second JSON object.
+        path (str): The current path within the JSON objects (used for nested keys).
+        
+    Returns:
+        list: A list of differences between the JSON objects.
+    """
     differences = []
     # Compare only keys that exist in both dictionaries
     common_keys = json1.keys() & json2.keys()
@@ -41,4 +61,3 @@ if differences:
         print(diff)
 else:
     print("No differences found between static and dynamic values")
-
