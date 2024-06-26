@@ -4,7 +4,15 @@
 - Asvalid also helps compare dynamic configuration values from a running node to the values mentioned in configuration file. 
 - It helps identify any inconsistencies adn  report differences between the dynamic runtime configuration and the static file.
 
-
+# Installation
+Clone the repository
+  ```bash
+  git clone https://github.com/shivanand-patil/Asvalid-tool.git
+  ```
+Move to cloned directory and run installation script
+  ```bash
+  sudo ./install.sh
+  ```  
 ## Use Cases
 
 ```bash
