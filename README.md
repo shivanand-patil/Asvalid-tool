@@ -11,6 +11,7 @@ Clone the repository
   ```
 Move to cloned directory and run installation script
   ```bash
+  cd Asvalid-tool
   sudo ./install.sh
   ```  
 ## Use Cases
