@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Command to add to cron
 CRON_COMMAND="*/10 * * * * /usr/local/bin/asvalid verify"
 
 # Check if the cron job already exists
